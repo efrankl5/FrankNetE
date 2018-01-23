@@ -26,6 +26,7 @@ class Dataset:
         filepath = p_dict["img_folder"]
         img_size = p_dict["quad_img_size"]
         aux_file = p_dict["aux_file_name"]
+        path = p_dict["path_to_folder"]
         """
         INPUT:
             filelisttext-> (str) the file name that has all of the paths to pictures
@@ -41,7 +42,7 @@ class Dataset:
                 raise
 
 
-        filelisttext = self.gentextfile(filepath,filelisttext_)
+        filelisttext = self.gentextfile(path+filepath,filelisttext_)
 
         assert (os.path.isfile(filelisttext)), 'There is no file by that name'
         
@@ -453,7 +454,7 @@ class Dataset:
         return None
     
     def read_age_file(self):
-        age_file = self.age_file
+        age_file = self.p_dict["path_to_folder"] + self.age_file
         age_list = []
         file_ref_list = []
         with open(age_file, "r") as file:
