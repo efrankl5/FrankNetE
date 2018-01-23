@@ -30,12 +30,10 @@ parameter_dict = {"classlist" : ("benign", "cancer"),
 				"aux_file_name" : "../model_aux_files",
 				"channel_to_use" : 3, # 0, 1, 2 for individual, 3 for all
 				"color_flag": False, #only important if not using all channels
-				"quad_img_size" : 256,
+				"quad_img_size" : 512, # make sure to change directory also
 				"fold_list" : [0,1], #### must be list[3,0,9] for all folds use list(range(10))
 				"num_folds" : 10,
 				"batch_size" : 10,
-				"img_size" : 128,
-				"adj_img_size" : 125,
 				"train_file_in" : "train",
 				"test_file_in" : "test",
 				"model_file" : "model_stack",
@@ -48,7 +46,7 @@ parameter_dict = {"classlist" : ("benign", "cancer"),
 				"early_stop_loss" : 0.05, # set this to zero to disable early stopping
 				"write_file" : "MARGResultBook.xlsx",
 				"comment" : "first epoch using stacked",
-				"img_folder" : "COMBINEDstacked_tiny",
+				"img_folder" : "COMBINEDstacked", #"COMBINEDstacked_tiny"
 				"age_file_name" : "AAA_PATIENT_AGES_COMINED.txt",
 				"path_to_folder" : "/home/franklondo/Desktop/", #MAKE SURE TO END WITH /!!!
 				"img_string_file" : "efiles.txt",
@@ -59,10 +57,11 @@ parameter_dict = {"classlist" : ("benign", "cancer"),
 				 }
 parameter_dict["num_classes"] = len(parameter_dict["classlist"])
 parameter_dict["pickle_filename"] = parameter_dict["aux_file_name"] + "/" + "folds.p"
-parameter_dict["adj_img_size"] = (parameter_dict["img_size"] * 2000/2048)
+parameter_dict["img_size"] = int(parameter_dict["quad_img_size"] // 2)
+parameter_dict["adj_img_size"] = int(parameter_dict["img_size"] * 2000/2048)
 
 network_dict = {"learning_rate" : 0.0001,
-				"num_filts" : [16, 32, 32, 64, 64, 128, 128, 256], # needs to have 8 for small 10 for big
+				"num_filts" : [16, 16, 32, 32, 32, 64, 64, 128, 128, 256], # needs to have 8 for small 10 for big [16, 32, 32, 64, 64, 128, 128, 256]
 				"fc_neurons" : [1024, 1024, 512], # [2048, 2048, 1024] can be any length
 				"dropout" : 0.5,
 				"adj_img_size": parameter_dict["adj_img_size"],
