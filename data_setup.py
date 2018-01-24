@@ -279,14 +279,14 @@ class Dataset:
         return (train,test)
         
     
-    def mayb_write2file(self, foi):
+    def mayb_write2file(self, foi, shuffle= True):
         
 
 
         p_dict = self.p_dict
 
         self.foi = foi
-        self.make_train_and_test()
+        self.make_train_and_test(shuffle=shuffle)
 
         in_train_filename = p_dict["train_file_in"]
         in_test_filename = p_dict["test_file_in"]

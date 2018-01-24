@@ -30,7 +30,7 @@ parameter_dict = {"classlist" : ("benign", "cancer"),
 				"aux_file_name" : "../model_aux_files",
 				"channel_to_use" : 3, # 0, 1, 2 for individual, 3 for all
 				"color_flag": False, #only important if not using all channels
-				"quad_img_size" : 512, # make sure to change directory also
+				"quad_img_size" : 256, # make sure to change directory also
 				"fold_list" : [0,1], #### must be list[3,0,9] for all folds use list(range(10))
 				"num_folds" : 10,
 				"batch_size" : 10,
@@ -46,14 +46,15 @@ parameter_dict = {"classlist" : ("benign", "cancer"),
 				"early_stop_loss" : 0.05, # set this to zero to disable early stopping
 				"write_file" : "MARGResultBook.xlsx",
 				"comment" : "first epoch using stacked",
-				"img_folder" : "COMBINEDstacked", #"COMBINEDstacked_tiny"
+				"img_folder" : "COMBINEDstacked_tiny", #"COMBINEDstacked_tiny" "COMBINEDstacked"
 				"age_file_name" : "AAA_PATIENT_AGES_COMINED.txt",
 				"path_to_folder" : "/home/franklondo/Desktop/", #MAKE SURE TO END WITH /!!!
 				"img_string_file" : "efiles.txt",
 				"window" : 10,
 				"report_interval" : 100,
 				"brightness_control" : 0.10, #value between (0,1]
-				"HSV_control" : 0.01 #value between (0,1]
+				"HSV_control" : 0.001, #value between (0,1]
+				"view_list" : ["mlo_lil", "mlo_big", "cc_lil", "cc_big"]
 				 }
 parameter_dict["num_classes"] = len(parameter_dict["classlist"])
 parameter_dict["pickle_filename"] = parameter_dict["aux_file_name"] + "/" + "folds.p"
@@ -73,7 +74,7 @@ network_dict = {"learning_rate" : 0.0001,
 				"batch_norm_decay" : 0.95,
 				"act_func" : tf.nn.selu, ## "selu" or tf.nn.elu or tf.nn.relu
 				"kernel_size" : 3,
-				"view_list" : ["mlo_lil", "mlo_big", "cc_lil", "cc_big"],
+				"view_list" : parameter_dict["view_list"],
 				"conv_layer_name" : "Convolution_Layer",
 				"pool_layer_name" : "Max_Pool",
 				"full_con_name" : "Fully_Connected",
@@ -82,7 +83,7 @@ network_dict = {"learning_rate" : 0.0001,
 				"num_channel" : 1 if (parameter_dict["channel_to_use"] < 3 and not parameter_dict["color_flag"]) else 3
 				}
 ######################################################
-print(parameter_dict["img_folder"])
+
 
 if __name__ == "__main__":
 
